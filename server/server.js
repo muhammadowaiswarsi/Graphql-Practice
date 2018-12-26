@@ -3,7 +3,6 @@ const graphqlHTTP = require("express-graphql")
 const schema = require("./Schema/schema")
 const mongoose = require("mongoose")
 
-// mongoose.connect("mongodb://<Muhammad Owais Warsi>:<owais123>@ds161653.mlab.com:61653/graphql-practice")
 mongoose.connect("mongodb://muhammadowaiswarsi:owais123@ds143614.mlab.com:43614/graphql-practice", { useNewUrlParser: true })
 
 mongoose.connection.once("open", () => {
