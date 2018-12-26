@@ -1,5 +1,7 @@
 const graphql = require("graphql")
 const _ = require("lodash");
+const Book = require("../Models/Book")
+const Author = require("../Models/Author")
 
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLInt } = graphql;
@@ -7,21 +9,21 @@ const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList,
 
 ////dummay data
 
-var books = [
-    { name: "this is book 1", genre: "book genre1", id: "1", authorID: "1" },
-    { name: "this is book 2", genre: "book genre2", id: "2", authorID: "2" },
-    { name: "this is book 3", genre: "book genre3", id: "3", authorID: "3" },
-    { name: "this is book 4", genre: "book genre4", id: "4", authorID: "2" },
-    { name: "this is book 5", genre: "book genre5", id: "5", authorID: "3" },
-    { name: "this is book 6", genre: "book genre6", id: "6", authorID: "3" },
+// var books = [
+//     { name: "this is book 1", genre: "book genre1", id: "1", authorID: "1" },
+//     { name: "this is book 2", genre: "book genre2", id: "2", authorID: "2" },
+//     { name: "this is book 3", genre: "book genre3", id: "3", authorID: "3" },
+//     { name: "this is book 4", genre: "book genre4", id: "4", authorID: "2" },
+//     { name: "this is book 5", genre: "book genre5", id: "5", authorID: "3" },
+//     { name: "this is book 6", genre: "book genre6", id: "6", authorID: "3" },
 
-]
+// ]
 
-var authors = [
-    { name: "Author 1", age: "42", id: "1" },
-    { name: "Author 2", age: "52", id: "2" },
-    { name: "Author 3", age: "62", id: "3" }
-]
+// var authors = [
+//     { name: "Author 1", age: "42", id: "1" },
+//     { name: "Author 2", age: "52", id: "2" },
+//     { name: "Author 3", age: "62", id: "3" }
+// ]
 
 const BookType = new GraphQLObjectType({
     name: "Book",
@@ -33,7 +35,7 @@ const BookType = new GraphQLObjectType({
             type: AuthorType,
             resolve(parent, args) {
                 /////loadash find method is used to find id 
-                return _.find(authors, { id: parent.authorID })
+                // return _.find(authors, { id: parent.authorID })
             }
         }
     })
@@ -49,7 +51,7 @@ const AuthorType = new GraphQLObjectType({
             ///GraphQLList is used for filter out all data against ID
             type: new GraphQLList(BookType),
             resolve(parent, args) {
-                return _.filter(books, { authorID: parent.id })
+                // return _.filter(books, { authorID: parent.id })
             }
         }
     })
@@ -63,7 +65,7 @@ const RootQuery = new GraphQLObjectType({
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
                 ///code to get data form database
-                return _.find(books, { id: args.id });
+                // return _.find(books, { id: args.id });
             }
         },
         Author: {
@@ -71,19 +73,19 @@ const RootQuery = new GraphQLObjectType({
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
                 ///code to get data form database
-                return _.find(authors, { id: args.id })
+                // return _.find(authors, { id: args.id })
             }
         },
         Books: {
             type: new GraphQLList(BookType),
             resolve(parent, args) {
-                return books
+                // return books
             }
         },
         Authors: {
             type: new GraphQLList(AuthorType),
             resolve(parent, args) {
-                return authors
+                // return authors
             }
         }
     }
